@@ -30,6 +30,8 @@ Easiest way to run the augmentation via Eurecon is running eurerun.py with the f
 
 python3.8 examples/eurerun.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path/to/tessellation/axes/file> -rr <enabling_or_disabling_relmin> -rrr <desired_relmin_ratio> -i <path/to/input/files> -o <path/to/the/output/directory>
 
+python path/to/eurerun/eurerun.py -r 0.5 -p 1 -a path/to/tesselation_vertices_layer_0.txt -rr 1 -rrr 0.1 -i path/to/files/file.off -o /output/folder
+
 ## Important notes:
 
 - You have to create the output directory before running the algorithm in case it was not created beforehand
