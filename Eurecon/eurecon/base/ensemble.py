@@ -137,40 +137,7 @@ class Ensemble:
 
         return conformation
 
-    ########################################## Random rotations #################################################
     
-    # @timing
-    # def generate_conformation(self, chosen_axis):
-    #     """
-    #     The function to generate a conformation, which was transformed using the given partition and RMSD parameters.
-
-    #     Parameters:
-    #         chosen_axis (A 3-by-1 numpy array):
-    #             The axis, which serves as a basis for performing rotation calculations.
-
-    #     Returns:
-    #         conformation (An N-by-3 numpy array):
-    #             3D object point array, which was transformed using the given partition and RMSD parameters.
-    #     """
-    #     angle, partition = self.rmsd_angle(chosen_axis)
-    #     rotation_matrix = R.random().as_matrix()
-    #     conformation = np.sum(
-    #         [
-    #             np.matmul(
-    #                 self.base_conformation.coords_in_center_of_mass, rotation_matrix
-    #             ),
-    #             self.transform.rmsd * np.sqrt(1 - partition) * chosen_axis,
-    #         ],
-    #         axis=0,
-    #     )
-    #     if self.debug_mode:
-    #         self.check_rmsd(conformation)
-    #     conformation = conformation + self.base_conformation.center_of_mass
-
-    #     return conformation
-########################################## Random rotations #################################################
-
-
     @timing
     def check_rmsd(self, conformation):
         """
