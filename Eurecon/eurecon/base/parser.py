@@ -158,39 +158,10 @@ class Parser:
             None.
 
         """
-        #base_name = data_file_name.split("/")[10][:-4] #for ModelNet40 in EL
-        base_name = data_file_name.split("/")[7][:-4] #for for ModelNet40 on Desktop
-        #base_name = data_file_name.split("/")[4][:-4] #for desktop single-test
-        format = data_file_name.split(".")[-1] # for single-use/tests/modelnet40
-        new_file_name = str(self.output_directory) + '/' + base_name + '_' + str(counter) + '.' + str(format) #for modelnet40
 
-        # base_name = data_file_name.split("/")[11][:-4] #for modelnet40 DE
-        # #base_name = data_file_name.split("/")[9][:-4] #for modelnet10
-        #new_file_name = f"{self.output_directory}{counter}.{format}" # for single-use/tests
-        # #new_file_name = str(self.output_directory) + base_name + '_' + str(counter) + '.' + str(format)
+        new_file_name = f"{self.output_directory}{counter}.{format}" # for single-use/tests
 
         
-        # mod_out_dir = str(self.output_directory).split("/")[:9]
-        # folder_dir = str(self.output_directory).split("/")[10]
-        # object_dir = str(self.output_directory).split("/")[9]
-        # mod_out_dir = str("/".join(mod_out_dir)) + str(counter)
-        # new_file_name = mod_out_dir + '/' + object_dir + '/' + folder_dir  + '/' + base_name + '_' + str(counter) + '.' + str(format) #for modelnet40 DE
-        # with open('/home/apm/Desktop/out_rel_eure.txt', 'w') as f:
-        #       f.writelines(new_file_name)
-        #       f.writelines('\n')
-        #       f.writelines(data_file_name)
-        #       f.writelines('\n')
-        #       f.writelines(base_name)
-        #       f.writelines('\n')
-            #  f.writelines(mod_out_dir)
-            #  f.writelines('\n')
-            #  f.writelines(folder_dir)
-            #  f.writelines('\n')
-            #  f.writelines(object_dir)
-            #f.writelines(self.output_directory + '\n')
-            #f.writelines(new_file_name + '\n')
-            #f.close()
-
         if data_file_name.endswith(Parser.POINT_CLOUD):
             pcd_mod = o3d.geometry.PointCloud()
             pcd_mod.points = o3d.utility.Vector3dVector(new_conformation)
@@ -274,7 +245,6 @@ class Parser:
             None.
 
         """
-        #print(base_conformation.data_file_name)
         bar = tqdm(desc=colored("Writing conformations", 'red', attrs = ['bold']), total=len(conformations), bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.RED, Fore.WHITE))
         for counter, new_conformation in enumerate(conformations):
             self.write_conformation(
