@@ -30,7 +30,7 @@ class Parser:
         self.relative_rmsd_ratio: float  = relative_rmsd_ratio
 
     def get_rel_rmsd_ratio(self):
-        return self.relative_rmsd_ratio
+        return float(self.relative_rmsd_ratio)
 
     def parse_transform(self, axes_file_path, rmsd, partition):
         """
@@ -94,21 +94,23 @@ class Parser:
                 points_coords = np.transpose(np.asarray(data_object.points))
                 object_length = len(points_coords[0])
             self.xyz_bio = bio_file
-        
-        points_center = data_object.get_center()
-        xmax = np.max(np.absolute(points_coords[0]))
-        ymax = np.max(np.absolute(points_coords[1]))
-        zmax = np.max(np.absolute(points_coords[2]))
-        self.points_bounds = np.array([xmax, ymax, zmax])
-        self.points_bounds = list(self.points_bounds - points_center)
-        self.points_bounds_sorted = sorted(self.points_bounds)
-        self.max_dist = np.linalg.norm(self.points_bounds)
-        self.min_points_bounds = np.min([self.points_bounds[0], self.points_bounds[1], self.points_bounds[2]])
-        if self.min_points_bounds < 0.1:
-             self.min_points_bounds = self.points_bounds_sorted[1] 
-        relative_rmsd = np.array([self.max_dist, self.min_points_bounds]) * float(self.relative_rmsd_ratio)
-
-        return data_object, points_coords, object_length, file_name, relative_rmsd
+        if self.relative_rmsd_ratio is not None:
+            points_center = data_object.get_center()
+            xmax = np.max(np.absolute(points_coords[0]))
+            ymax = np.max(np.absolute(points_coords[1]))
+            zmax = np.max(np.absolute(points_coords[2]))
+            self.points_bounds = np.array([xmax, ymax, zmax])
+            self.points_bounds = list(self.points_bounds - points_center)
+            self.points_bounds_sorted = sorted(self.points_bounds)
+            self.max_dist = np.linalg.norm(self.points_bounds)
+            self.min_points_bounds = np.min([self.points_bounds[0], self.points_bounds[1], self.points_bounds[2]])
+            if self.min_points_bounds < 0.1:
+                self.min_points_bounds = self.points_bounds_sorted[1] 
+            relative_rmsd = np.array([self.max_dist, self.min_points_bounds]) * float(self.relative_rmsd_ratio)
+            
+            return data_object, points_coords, object_length, file_name, relative_rmsd
+        else:
+            return data_object, points_coords, object_length, file_name
 
     def get_relative_array(self):
         return [str(self.max_dist), str(self.points_bounds[0]), str(self.points_bounds[1]), str(self.points_bounds[2])]
@@ -131,11 +133,17 @@ class Parser:
         else:
             weights = None
 
-        data_obj, coords, object_length, file_name, relative_rmsd = self.parse_object(input_directory)
-        conformation = Conformation(data_obj, coords, object_length, file_name, weights)
-
-        self.conf_file_name = input_directory
-        return coords, conformation, relative_rmsd
+        if self.relative_rmsd_ratio is not None:
+            data_obj, coords, object_length, file_name, relative_rmsd = self.parse_object(input_directory)
+            conformation = Conformation(data_obj, coords, object_length, file_name, weights)
+            self.conf_file_name = input_directory
+            return coords, conformation, relative_rmsd
+        
+        else:
+            data_obj, coords, object_length, file_name = self.parse_object(input_directory)
+            conformation = Conformation(data_obj, coords, object_length, file_name, weights)
+            self.conf_file_name = input_directory
+            return coords, conformation
 
     @timing
     def write_conformation(
@@ -158,8 +166,8 @@ class Parser:
             None.
 
         """
-
-        new_file_name = f"{self.output_directory}{counter}.{format}" # for single-use/tests
+        format = data_file_name.split('.')[-1]
+        new_file_name = f"{self.output_directory}/{data_file_name.split('/')[-1][:-(len(format)+1)]}_{counter}.{format}" # for single-use/tests
 
         
         if data_file_name.endswith(Parser.POINT_CLOUD):
