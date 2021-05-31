@@ -30,7 +30,10 @@ class Parser:
         self.relative_rmsd_ratio: float  = relative_rmsd_ratio
 
     def get_rel_rmsd_ratio(self):
-        return float(self.relative_rmsd_ratio)
+        if self.relative_rmsd_ratio is not None:
+            return float(self.relative_rmsd_ratio)
+        else:
+            pass
 
     def parse_transform(self, axes_file_path, rmsd, partition):
         """
