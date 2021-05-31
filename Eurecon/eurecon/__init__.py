@@ -81,14 +81,20 @@ class Eurecon:
         self.preprocess()
         start = datetime.datetime.now()
 
-        parser: Parser = Parser(self.output_directory, self.relative_rmsd, self.relative_rmsd_ratio)
+        if self.relative_rmsd_ratio is not None:
+            parser: Parser = Parser(self.output_directory, self.relative_rmsd, self.relative_rmsd_ratio)
 
-        coords, base_conformation, relative_rmsd_ = parser.parse_base_conformation(
-            self.input_directory, self.weights_file_path
+            coords, base_conformation, relative_rmsd_ = parser.parse_base_conformation(
+                self.input_directory, self.weights_file_path
         )
 ############################# Comment/Uncomment to disable/enable RELRMSD ##############################
-        self.rmsd = relative_rmsd_[int(self.relative_rmsd)]
+            self.rmsd = relative_rmsd_[int(self.relative_rmsd)]
 ############################# Comment/Uncomment to disable/enable RELRMSD ##############################
+        else:
+            parser: Parser = Parser(self.output_directory, self.relative_rmsd, self.relative_rmsd_ratio)
+            coords, base_conformation = parser.parse_base_conformation(
+                self.input_directory, self.weights_file_path
+        )
  
 
         transform: Transform = parser.parse_transform(
@@ -97,11 +103,6 @@ class Eurecon:
 
         ensemble = Ensemble(base_conformation, transform, parser, self.debug_mode)
 
-
-############################# Comment/Uncomment to disable/enable writedown ##############################
-        if self.stdout_mode:
-            parser.write_default(base_conformation, coords)
-############################# Comment/Uncomment to disable/enable writedown ##############################
 
         start_no_parsing = datetime.datetime.now()
         ensemble.generate_ensemble(self.stdout_mode)
