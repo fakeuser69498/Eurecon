@@ -194,7 +194,8 @@ class Ensemble:
         else:
             print_type = "Mesh"
         
-        if self.parser.rel_rmsd:
+        if self.parser.get_rel_rmsd_ratio() is not None:
+            print(self.parser.get_rel_rmsd_ratio())
             print(colored('Augmenting ', 'red', attrs = ['bold']) + colored(str(self.base_conformation.data_file_name), 'green', attrs = ['bold'])
             + colored(' object', 'red', attrs = ['bold']) + colored('  |  Type: ', 'red', attrs = ['bold'])
             + colored(print_type, 'yellow', attrs = ['bold']) + colored('  |  Initial RMSD: ', 'red', attrs = ['bold'])
@@ -207,7 +208,7 @@ class Ensemble:
             print(colored('Augmenting ', 'red', attrs = ['bold']) + colored(str(self.base_conformation.data_file_name), 'green', attrs = ['bold'])
             + colored(' object', 'red', attrs = ['bold']) + colored('  |  Type: ', 'red', attrs = ['bold'])
             + colored(print_type, 'yellow', attrs = ['bold']) + colored('  | RMSD Value: ', 'red', attrs = ['bold'])
-            + colored(str(self.transform.rmsd / self.parser.get_rel_rmsd_ratio()), 'yellow', attrs = ['bold']))
+            + colored(str(self.transform.rmsd), 'yellow', attrs = ['bold']))
             
 
         name_of_bar = colored('Processing conformations', 'red', attrs = ['bold']) if stdout_mode else colored('Generating conformations', 'red', attrs = ['bold'])
