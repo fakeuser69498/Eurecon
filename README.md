@@ -16,11 +16,12 @@ Python library for 3D data augmentation, based on Eurecon algorithm.
 
 ## Requirements:
 - Python 3.8+
-- click==7.1.2+
-- click-plugins==1.1.1+
-- numpy==1.17.2+
-- open3d==0.10.0.0+
-- tqdm==4.46.1+
+- click==7.1.2
+- click-plugins==1.1.1
+- numpy==1.19.5
+- open3d==0.10.0.0
+- openbabel==3.1.1.1
+- tqdm==4.56.0
 
 
 ## How to use:
