@@ -6,7 +6,6 @@ import open3d as o3d
 from tqdm import tqdm
 from termcolor import colored
 from ..utils.metrics import timing
-from ..utils.xyz_bio_parser import XyzBioDataObject, is_bio
 from .conformation import Conformation
 from .transform import Transform
 from colorama import Fore
@@ -19,8 +18,7 @@ warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 class Parser:
     """Default class for Parser."""
 
-    XYZ = "xyz"
-    POINT_CLOUD = ("pcd", "pts")
+    POINT_CLOUD = ("xyz", "pcd", "pts")
     TRIANGLE_MESH = ("stl", "obj", "off", "gltf", "ply")
 
     def __init__(self, output_directory, rel_rmsd, relative_rmsd_ratio):
@@ -84,19 +82,7 @@ class Parser:
             ###
             object_length = len(np.transpose(points_coords))
 
-        if file_name.endswith(Parser.XYZ):
-            bio_file = is_bio(file_name)
 
-            if bio_file:
-                data_object = XyzBioDataObject.make_from_file(file_name)
-                points_coords = data_object.data
-                object_length = len(points_coords[0])
-
-            else:
-                data_object = o3d.io.read_point_cloud(file_name)
-                points_coords = np.transpose(np.asarray(data_object.points))
-                object_length = len(points_coords[0])
-            self.xyz_bio = bio_file
         if self.relative_rmsd_ratio is not None:
             points_center = data_object.get_center()
             xmax = np.max(np.absolute(points_coords[0]))
@@ -170,7 +156,7 @@ class Parser:
 
         """
         format = data_file_name.split('.')[-1]
-        new_file_name = f"{self.output_directory}/{data_file_name.split('/')[-1][:-(len(format)+1)]}_{counter}.{format}" # for single-use/tests
+        new_file_name = f"{self.output_directory}/{data_file_name.split('/')[-1][:-(len(format)+1)]}_{counter}.{format}"
 
         
         if data_file_name.endswith(Parser.POINT_CLOUD):
@@ -187,16 +173,6 @@ class Parser:
             if format == "stl":
                 mesh_mod_out.compute_vertex_normals()
             o3d.io.write_triangle_mesh(new_file_name, mesh_mod_out)
-
-        elif data_file_name.endswith(Parser.XYZ):
-            if self.xyz_bio:
-                new_obj: XyzBioDataObject = copy.deepcopy(data_object)
-                new_obj.data = new_conformation.T
-                new_obj.to_file(new_file_name)
-            else:
-                pcd_mod = o3d.geometry.PointCloud()
-                pcd_mod.points = o3d.utility.Vector3dVector(new_conformation)
-                o3d.io.write_point_cloud(new_file_name, pcd_mod)
 
     def write_default(self, base_conformation: Conformation, coords):
         """
@@ -232,15 +208,6 @@ class Parser:
             if format == "stl":
                 mesh_mod_out.compute_vertex_normals()
             o3d.io.write_triangle_mesh(new_file_name, mesh_mod_out)
-
-        elif data_file_name.endswith(Parser.XYZ):
-            if self.xyz_bio:
-                new_obj: XyzBioDataObject = copy.deepcopy(data_object)
-                new_obj.to_file(new_file_name)
-            else:
-                pcd_mod = o3d.geometry.PointCloud()
-                pcd_mod.points = o3d.utility.Vector3dVector(coords.T)
-                o3d.io.write_point_cloud(new_file_name, pcd_mod)
 
     def write_all_conformations(
         self, conformations: list, base_conformation: Conformation
