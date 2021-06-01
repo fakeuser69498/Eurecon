@@ -22,6 +22,7 @@ class Parser:
     def __init__(self, output_directory, rel_rmsd, relative_rmsd_ratio):
         """Initialization."""
         self.output_directory = output_directory
+        if not os.path.exists(self.output_directory): os.mkdir(self.output_directory) 
         self.rel_rmsd = rel_rmsd
         self.relative_rmsd_ratio: float  = relative_rmsd_ratio
 
