@@ -20,8 +20,6 @@ class Eurecon:
         output_directory: str,
         rmsd: float,
         partition: float,
-        relative_rmsd: int,
-        relative_rmsd_ratio: float,
         stdout_mode: bool = False,
         weights_file_path: bool = None,
         debug_mode: bool = False
@@ -33,8 +31,6 @@ class Eurecon:
         self.rmsd: float = rmsd
         self.output_directory: str = output_directory
         self.partition: float = partition
-        self.relative_rmsd: int = relative_rmsd
-        self.relative_rmsd_ratio: float = relative_rmsd_ratio
         self.stdout_mode: bool = stdout_mode
         self.debug_mode: bool = debug_mode
         self.is_bio = False
@@ -58,20 +54,9 @@ class Eurecon:
         """Start eurecon algorithm."""
         #self.validate()
         start = datetime.datetime.now()
-
-        if self.relative_rmsd_ratio is not None:
-            parser: Parser = Parser(self.output_directory, self.relative_rmsd, self.relative_rmsd_ratio)
-
-            coords, base_conformation, relative_rmsd_ = parser.parse_base_conformation(
-                self.input_directory, self.weights_file_path
-        )
-############################# Comment/Uncomment to disable/enable RELRMSD ##############################
-            self.rmsd = relative_rmsd_[int(self.relative_rmsd)]
-############################# Comment/Uncomment to disable/enable RELRMSD ##############################
-        else:
-            parser: Parser = Parser(self.output_directory, self.relative_rmsd, self.relative_rmsd_ratio)
-            coords, base_conformation = parser.parse_base_conformation(
-                self.input_directory, self.weights_file_path
+        parser: Parser = Parser(self.output_directory, self.relative_rmsd, self.relative_rmsd_ratio)
+        coords, base_conformation = parser.parse_base_conformation(
+            self.input_directory, self.weights_file_path
         )
  
 
