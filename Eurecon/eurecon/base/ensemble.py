@@ -6,9 +6,6 @@ from .parser import Parser
 from ..utils.metrics import timing
 from .conformation import Conformation
 from .transform import Transform
-from termcolor import colored
-from colorama import Fore
-
 
 
 class Ensemble:
@@ -195,24 +192,15 @@ class Ensemble:
             print_type = "Mesh"
         
         if self.parser.get_rel_rmsd_ratio() is not None:
-            print(self.parser.get_rel_rmsd_ratio())
-            print(colored('Augmenting ', 'red', attrs = ['bold']) + colored(str(self.base_conformation.data_file_name), 'green', attrs = ['bold'])
-            + colored(' object', 'red', attrs = ['bold']) + colored('  |  Type: ', 'red', attrs = ['bold'])
-            + colored(print_type, 'yellow', attrs = ['bold']) + colored('  |  Initial RMSD: ', 'red', attrs = ['bold'])
-            + colored(str(self.transform.rmsd / self.parser.get_rel_rmsd_ratio()), 'yellow', attrs = ['bold']) + colored('  |  Relative RMSD: ', 'red', attrs = ['bold'])
-            + colored(str(self.transform.rmsd), 'yellow', attrs = ['bold'])  + colored('  |  Relative RMSD Ratio: ', 'red', attrs = ['bold'])
-            + colored(str(self.parser.get_rel_rmsd_ratio()*100) + '%', 'yellow', attrs = ['bold']) + colored('  |  [Max Distance, Xmax, Ymax, Zmax]: ', 'red', attrs = ['bold'])
-            + colored(str(self.parser.get_relative_array()), 'yellow', attrs = ['bold']))
+            print('Augmenting ' + str(self.base_conformation.data_file_name) + ' object' + "  |  Type: " + str(print_type) + '  |  Initial RMSD: ' + str(self.transform.rmsd / self.parser.get_rel_rmsd_ratio()) + '  |  Relative RMSD: '
+            + str(self.transform.rmsd) + '  |  Relative RMSD Ratio: ' + str(self.parser.get_rel_rmsd_ratio()*100) + '%' + '  |  [Max Distance, Xmax, Ymax, Zmax]: ' + str(self.parser.get_relative_array()))
         
         else:
-            print(colored('Augmenting ', 'red', attrs = ['bold']) + colored(str(self.base_conformation.data_file_name), 'green', attrs = ['bold'])
-            + colored(' object', 'red', attrs = ['bold']) + colored('  |  Type: ', 'red', attrs = ['bold'])
-            + colored(print_type, 'yellow', attrs = ['bold']) + colored('  | RMSD Value: ', 'red', attrs = ['bold'])
-            + colored(str(self.transform.rmsd), 'yellow', attrs = ['bold']))
+            print('Augmenting ' + str(self.base_conformation.data_file_name) + ' object' + '  |  Type: ' + str(print_type) + '  | RMSD Value: ' + str(self.transform.rmsd))
             
 
-        name_of_bar = colored('Processing conformations', 'red', attrs = ['bold']) if stdout_mode else colored('Generating conformations', 'red', attrs = ['bold'])
-        bar = tqdm(total=len(self.transform.axes), desc=name_of_bar, bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.RED, Fore.WHITE))
+        name_of_bar = 'Processing conformations' if stdout_mode else 'Generating conformations'
+        bar = tqdm(total=len(self.transform.axes), desc=name_of_bar)
 
         for counter, axis in enumerate(self.transform.axes):
             new_conformation = self.generate_conformation(axis)
