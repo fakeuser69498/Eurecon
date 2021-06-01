@@ -32,9 +32,9 @@ Tests were performed on:
 
 ## How to use:
 
-Easiest way to run the augmentation via Eurecon is running eurerun.py with the following command line:
+Easiest way to run the augmentation via Eurecon is running eurecon.py with the following command line:
 
-python eurecon.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path/to/tessellation/axes/file> [-rr] <selecting_alternate_rmsd> [-rrr] <desired_alternate_rmsd_ratio> -i <path/to/input/files> -o <path/to/the/output/directory>
+python eurecon.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path/to/tessellation/axes/file> -i <path/to/input/files> -o <path/to/the/output/directory>
 
 ## Example:
 
