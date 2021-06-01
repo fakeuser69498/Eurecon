@@ -4,11 +4,9 @@ import copy
 import numpy as np
 import open3d as o3d
 from tqdm import tqdm
-from termcolor import colored
 from ..utils.metrics import timing
 from .conformation import Conformation
 from .transform import Transform
-from colorama import Fore
 
 import warnings
 warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning) 
@@ -223,7 +221,7 @@ class Parser:
             None.
 
         """
-        bar = tqdm(desc=colored("Writing conformations", 'red', attrs = ['bold']), total=len(conformations), bar_format="{l_bar}%s{bar}%s{r_bar}" % (Fore.RED, Fore.WHITE))
+        bar = tqdm(desc="Writing conformations", total=len(conformations))
         for counter, new_conformation in enumerate(conformations):
             self.write_conformation(
                 base_conformation.data_object,
