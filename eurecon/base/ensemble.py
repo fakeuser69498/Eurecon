@@ -190,11 +190,6 @@ class Ensemble:
         else:
             print_type = "Mesh"
         
-        if self.parser.get_rel_rmsd_ratio() is not None:
-            print('Augmenting ' + str(self.base_conformation.data_file_name) + ' object' + "  |  Type: " + str(print_type) + '  |  Initial RMSD: ' + str(self.transform.rmsd / self.parser.get_rel_rmsd_ratio()) + '  |  Relative RMSD: '
-            + str(self.transform.rmsd) + '  |  Relative RMSD Ratio: ' + str(self.parser.get_rel_rmsd_ratio()*100) + '%' + '  |  [Max Distance, Xmax, Ymax, Zmax]: ' + str(self.parser.get_relative_array()))
-        
-        else:
             print('Augmenting ' + str(self.base_conformation.data_file_name) + ' object' + '  |  Type: ' + str(print_type) + '  | RMSD Value: ' + str(self.transform.rmsd))
             
 
