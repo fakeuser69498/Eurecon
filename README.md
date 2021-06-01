@@ -20,7 +20,6 @@ Python library for 3D data augmentation, based on Eurecon algorithm.
 - click-plugins==1.1.1
 - numpy==1.19.5
 - open3d==0.10.0.0
-- openbabel==3.1.1.1
 - tqdm==4.56.0
 
 
@@ -28,8 +27,8 @@ Python library for 3D data augmentation, based on Eurecon algorithm.
 
 Easiest way to run the augmentation via Eurecon is running eurerun.py with the following command line:
 
-python3.8 eurecon.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path/to/tessellation/axes/file> [-rr] <selecting_alternate_rmsd> [-rrr] <desired_alternate_rmsd_ratio> -i <path/to/input/files> -o <path/to/the/output/directory>
+python eurecon.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path/to/tessellation/axes/file> [-rr] <selecting_alternate_rmsd> [-rrr] <desired_alternate_rmsd_ratio> -i <path/to/input/files> -o <path/to/the/output/directory>
 
 ## Example:
 
-python eurecon.py -r 0.5 -p 1 -a resources/tesselation_vertices_layer_0.txt -rr 1 -rrr 0.1 -i examples/test.off -o examples/test_output
+python eurecon.py -r 0.5 -p 1 -a resources/tesselation_vertices_layer_0.txt -i examples/test.off -o examples/test_output
