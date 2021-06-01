@@ -30,10 +30,6 @@ Easiest way to run the augmentation via Eurecon is running eurerun.py with the f
 
 python3.8 eurecon.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path/to/tessellation/axes/file> [-rr] <selecting_alternate_rmsd> [-rrr] <desired_alternate_rmsd_ratio> -i <path/to/input/files> -o <path/to/the/output/directory>
 
-Example:
+## Example:
 
-python eurecon.py -r 0.5 -p 1 -a resources/tesselation_vertices_layer_0.txt -rr 1 -rrr 0.1 -i examples/test.off -o examples
-
-## Important notes:
-
-- You have to create the output directory before running the algorithm in case it was not created beforehand
+python eurecon.py -r 0.5 -p 1 -a resources/tesselation_vertices_layer_0.txt -rr 1 -rrr 0.1 -i examples/test.off -o examples/test_output
