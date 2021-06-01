@@ -54,7 +54,7 @@ class Eurecon:
         """Start eurecon algorithm."""
         #self.validate()
         start = datetime.datetime.now()
-        parser: Parser = Parser(self.output_directory, self.relative_rmsd, self.relative_rmsd_ratio)
+        parser: Parser = Parser(self.output_directory)
         coords, base_conformation = parser.parse_base_conformation(
             self.input_directory, self.weights_file_path
         )
