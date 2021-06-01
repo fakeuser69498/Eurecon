@@ -8,7 +8,6 @@ from .base.transform import Transform
 from .base.parser import Parser
 
 OPEN_3D_FORMATS = ("obj", "off", "ply", "gltf", "stl", "pcd", "pts", "xyz")
-OPEN_BABEL_FORMATS = ("mol2", "sdf", "pdb")
 
 
 class Eurecon:
@@ -55,30 +54,9 @@ class Eurecon:
         if self.rmsd <= 0:
             raise Exception("RMSD cannot be negative.")
     
-    def preprocess(self):
-        base_format = self.input_directory.split(".")[-1]
-        if base_format in OPEN_BABEL_FORMATS:
-            self.is_bio: bool = True
-            self.base_format: str = base_format
-            self.base_input_directory: str = self.input_directory
-
-            from .base.bio_files_processing import convert_input_file
-
-            convert_input_file(self.input_directory, base_format)
-            self.input_directory = self.input_directory.replace(
-                f".{base_format}", ".xyz"
-            )
-
-    def postprocess(self):
-        if self.is_bio:
-            from .base.bio_files_processing import convert_result_files
-
-            convert_result_files(self.output_directory, self.base_format)
-
     def start(self):
         """Start eurecon algorithm."""
         #self.validate()
-        self.preprocess()
         start = datetime.datetime.now()
 
         if self.relative_rmsd_ratio is not None:
@@ -113,7 +91,6 @@ class Eurecon:
             ensemble.write()
 ############################# Comment/Uncomment to disable/enable writedown ##############################
 
-        self.postprocess()
         total = datetime.datetime.now() - start
         total_no_parsing = datetime.datetime.now() - start_no_parsing
 
