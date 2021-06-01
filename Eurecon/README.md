@@ -4,7 +4,7 @@ Equidistant and Uniform Data Augmentation for 3D Objects.
 
 Python library for 3D data augmentation, based on Eurecon algorithm. 
 
-- The library works with a variety of 3D file formats, including point cloud formats (.XYZ, .PTS, .PCD), polygon mesh formats (.STL, .OFF, .OBJ, .PLY, .GLTF) and biomolecular formats (.MOL2, .PDB, .XYZ).
+- The library works with a variety of 3D file formats, including point cloud formats (.XYZ, .PTS, .PCD), polygon mesh formats (.STL, .OFF, .OBJ, .PLY, .GLTF).
 - Eurecon is computationally efficient taking ~0.1 seconds to generate 1,000 samples  of an object of 1,000 3D points. 
 - Based on numpy, open3d and OpenBabel.
 - Simple, flexible API that allows the library to be used in any machine learning pipeline.
@@ -20,7 +20,6 @@ Python library for 3D data augmentation, based on Eurecon algorithm.
 - click-plugins==1.1.1+
 - numpy==1.17.2+
 - open3d==0.10.0.0+
-- openbabel==3.1.1.1+
 - tqdm==4.46.1+
 - colorama==0.4.4+
 - termcolor==1.1.0+
@@ -37,4 +36,3 @@ python path/to/eurerun/eurerun.py -r 0.5 -p 1 -a path/to/tesselation/axes.txt -r
 ## Important notes:
 
 - You have to create the output directory before running the algorithm in case it was not created beforehand
-- Using augmentation on biomolecular file formats requires having OpenBabel (https://github.com/openbabel/openbabel/releases/tag/openbabel-3-1-1) installed; also please consider the fact that running Eurecon would effectively delete most of the metadata, leaving only an array of 3D coordinates and atom types
