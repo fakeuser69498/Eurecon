@@ -5,7 +5,7 @@ Equidistant and Uniform Data Augmentation for 3D Objects.
 Python library for 3D data augmentation, based on Eurecon algorithm. 
 
 - The library works with a variety of 3D file formats, including point cloud formats (.XYZ, .PTS, .PCD), polygon mesh formats (.STL, .OFF, .OBJ, .PLY, .GLTF).
-- Eurecon is computationally efficient taking ~0.1 seconds to generate 1,000 samples  of an object of 1,000 3D points. 
+- Eurecon is computationally efficient, taking ~0.1 seconds to generate 1,000 samples  of an object of 1,000 3D points. 
 - Based on numpy and open3d.
 - Simple, flexible API that allows the library to be used in any machine learning pipeline.
 - Large, diverse set of transformations based on the amount of input tessellation axes.
