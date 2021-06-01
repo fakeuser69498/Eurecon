@@ -32,7 +32,7 @@ python3.8 eurecon.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path
 
 Example:
 
-python eurecon.py -r 0.5 -p 1 -a resources/tesselation_vertices_layer_0.txt -rr 1 -rrr 0.1 -i examples/cone.off -o examples
+python eurecon.py -r 0.5 -p 1 -a resources/tesselation_vertices_layer_0.txt -rr 1 -rrr 0.1 -i examples/test.off -o examples
 
 ## Important notes:
 
