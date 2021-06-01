@@ -23,6 +23,7 @@ Python library for 3D data augmentation, based on Eurecon algorithm.
 
 Tests were performed on:
 
+- Ubuntu 18.04
 - Python 3.8
 - click==7.1.2
 - numpy==1.17.2
