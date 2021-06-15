@@ -33,7 +33,6 @@ class Eurecon:
         self.partition: float = partition
         self.stdout_mode: bool = stdout_mode
         self.debug_mode: bool = debug_mode
-        self.is_bio = False
 
     def validate(self):
         """Parametres validation."""
