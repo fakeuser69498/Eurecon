@@ -36,6 +36,8 @@ Easiest way to run the augmentation via Eurecon is running eurecon.py with the f
 
 python eurecon.py -r <desired_RMSD> -p <desired_partition_parameter> -a <path/to/tessellation/axes/file> -i <path/to/input/files> -o <path/to/the/output/directory>
 
+Detailed instructions on how to run Eurecon to reproduce an augmented ModelNet40 dataset are stated in augment_ModelNet40.py script.
+
 ## Example:
 
 python eurecon.py -r 0.5 -p 1 -a resources/tesselation_vertices_layer_0.txt -i examples/test.off -o examples/test_output
